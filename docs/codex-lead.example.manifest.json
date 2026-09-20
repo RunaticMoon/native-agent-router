@@ -1,0 +1,33 @@
+{
+  "_comment": "TEMPLATE ONLY — Codex is reserved Lead/final external fallback. designation=lead means this plugin is NEVER a worker-pool member: installing this manifest cannot autojoin execution. Real binary identity/version must be operator-verified before activation; all fields are placeholders.",
+  "manifest_version": 1,
+  "plugin_id": "codex-lead",
+  "plugin_version": "0.0.0-placeholder",
+  "protocol_version": 1,
+  "transport": "stdio-jsonrpc",
+  "command": { "executable": "/abs/path/to/node", "args": ["/abs/path/to/plugins/codex-lead.js", "--manifest", "/abs/path/to/codex-lead.manifest.json"] },
+  "cli": { "name": "codex", "version_range": ">=0.0.0", "executable": "/abs/path/to/codex", "sha256": "PLACEHOLDER_SHA256_OPERATOR_MUST_PIN" },
+  "codec": "ndjson-event",
+  "discovery": "static-manifest",
+  "catalog_path": "/abs/path/to/codex-lead.catalog.json",
+  "required_env": [],
+  "network": "required",
+  "filesystem": "unknown",
+  "retention": { "raw_output": false, "diagnostics_bytes": 8192 },
+  "capabilities": {
+    "mode_agent": { "status": "unknown", "evidence": "not verified" },
+    "mode_text": { "status": "unknown", "evidence": "not verified" },
+    "model_selection": { "status": "unknown", "evidence": "not verified" },
+    "effort": { "status": "unknown", "evidence": "not verified" },
+    "structured_events": { "status": "unknown", "evidence": "not verified" },
+    "resume": { "status": "unknown", "evidence": "not verified" },
+    "permission": "preconfigured_only",
+    "run_usage": { "status": "unknown", "evidence": "not verified" },
+    "quota": { "status": "unknown", "evidence": "not verified" },
+    "graceful_cancel": { "status": "unknown", "evidence": "not verified" },
+    "cwd": { "status": "unknown", "evidence": "not verified" },
+    "network": "required",
+    "filesystem": "unknown"
+  },
+  "designation": "lead"
+}

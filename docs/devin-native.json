@@ -1,0 +1,40 @@
+{
+  "manifest_version": 1,
+  "plugin_id": "devin-native",
+  "plugin_version": "0.1.0",
+  "protocol_version": 1,
+  "transport": "stdio-jsonrpc",
+  "command": {
+    "executable": "<absolute path to compiled dist/plugins/devin-native.js via node, or a packaged bin>",
+    "args": []
+  },
+  "cli": {
+    "name": "devin",
+    "version_range": ">=3000.0.0 <3001.0.0",
+    "executable": "<operator-approved absolute realpath to devin>",
+    "sha256": "<operator-pinned sha256 of realpath(devin) — measure before enabling>"
+  },
+  "codec": "acp-v1",
+  "discovery": "static-manifest",
+  "catalog_path": "<absolute path to operator-managed devin catalog.json>",
+  "required_env": ["DEVIN_CLI_EXECUTABLE", "DEVIN_CLI_SHA256"],
+  "network": "required",
+  "filesystem": "unknown",
+  "retention": { "raw_output": false, "diagnostics_bytes": 8192 },
+  "capabilities": {
+    "mode_agent": { "status": "supported", "evidence": "ACP session/prompt; synthetic-fixture verified" },
+    "mode_text": { "status": "supported", "evidence": "agent_message_chunk text only" },
+    "model_selection": { "status": "supported", "evidence": "devin acp --model <exact id>" },
+    "effort": { "status": "unknown", "evidence": "no verified effort interface; requests rejected" },
+    "structured_events": { "status": "supported", "evidence": "session/update" },
+    "resume": { "status": "unsupported", "evidence": "not implemented; native_session_id rejected" },
+    "permission": "unknown",
+    "run_usage": { "status": "supported", "evidence": "usage_update context used/size (not per-run tokens)" },
+    "quota": { "status": "unknown", "evidence": "no verified quota observer" },
+    "graceful_cancel": { "status": "unknown", "evidence": "session/cancel exists; remote confirm unverified" },
+    "cwd": { "status": "supported", "evidence": "session/new cwd + spawn cwd" },
+    "network": "required",
+    "filesystem": "unknown"
+  },
+  "designation": "worker"
+}

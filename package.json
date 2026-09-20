@@ -1,0 +1,21 @@
+{
+  "name": "native-agent-router",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Native CLI Plugin Router MVP - synthetic fixture vertical slice",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"dist/tests/*.test.js\"",
+    "demo": "npm run build && node dist/demo/demo.js",
+    "routerd": "node dist/src/http/routerd.js",
+    "test:real": "node opt-in/real-cli.test.mjs"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "0.34.41"
+  },
+  "devDependencies": {
+    "@types/node": "24.3.1",
+    "typescript": "5.9.2"
+  }
+}

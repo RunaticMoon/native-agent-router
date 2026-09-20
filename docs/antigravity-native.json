@@ -1,0 +1,40 @@
+{
+  "manifest_version": 1,
+  "plugin_id": "antigravity-native",
+  "plugin_version": "0.1.0",
+  "protocol_version": 1,
+  "transport": "stdio-jsonrpc",
+  "command": {
+    "executable": "<absolute path to compiled dist/plugins/antigravity-native.js via node, or a packaged bin>",
+    "args": []
+  },
+  "cli": {
+    "name": "agy",
+    "version_range": ">=1.2.0 <1.3.0",
+    "executable": "<operator-approved absolute realpath to agy>",
+    "sha256": "<operator-pinned sha256 of realpath(agy) — measure before enabling>"
+  },
+  "codec": "ndjson-event",
+  "discovery": "static-manifest",
+  "catalog_path": "<absolute path to operator-managed agy catalog.json>",
+  "required_env": ["AGY_CLI_EXECUTABLE", "AGY_CLI_SHA256"],
+  "network": "required",
+  "filesystem": "unknown",
+  "retention": { "raw_output": false, "diagnostics_bytes": 8192 },
+  "capabilities": {
+    "mode_agent": { "status": "supported", "evidence": "stream-json; synthetic-fixture verified" },
+    "mode_text": { "status": "supported", "evidence": "agent_response text_delta only" },
+    "model_selection": { "status": "supported", "evidence": "--model exact slug; unknown model exits nonzero" },
+    "effort": { "status": "supported", "evidence": "--effort low|medium|high documented; per-model applicability unverified" },
+    "structured_events": { "status": "supported", "evidence": "init/step_update/result" },
+    "resume": { "status": "unsupported", "evidence": "--conversation not implemented; native_session_id rejected" },
+    "permission": "preconfigured_only",
+    "run_usage": { "status": "supported", "evidence": "result.usage cumulative session totals" },
+    "quota": { "status": "unknown", "evidence": "no verified quota observer" },
+    "graceful_cancel": { "status": "unknown", "evidence": "no remote cancel; local termination only" },
+    "cwd": { "status": "supported", "evidence": "spawn cwd; init.cwd echo" },
+    "network": "required",
+    "filesystem": "unknown"
+  },
+  "designation": "worker"
+}
