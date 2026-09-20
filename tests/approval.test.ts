@@ -72,11 +72,20 @@ test("first decision wins; cross-job approval id rejected; approver scope requir
       api(env, "POST", `/v1/jobs/${jobId}/permissions/${apprId}`, { option: "deny" }),
       api(env, "POST", `/v1/jobs/${jobId}/permissions/${apprId}`, { option: "allow" }),
     ]);
-    const statuses = [(d1.body as { status: string }).status, (d2.body as { status: string }).status].sort();
+    const outcomes = [(d1.body as { status: string }).status, (d2.body as { status: string }).status];
+    // Promise.all preserves result order, not HTTP arrival/transaction order.
+    // Either decision may commit first, but only one may win.
+    assert.equal(outcomes.filter((s) => s === "already").length, 1);
+    const winnerIndex = outcomes.findIndex((s) => s !== "already");
+    const expectedStatus = winnerIndex === 0 ? "denied" : "approved";
+    const expectedOption = winnerIndex === 0 ? "deny" : "allow";
+    assert.equal(outcomes[winnerIndex], expectedStatus);
     const a = env.stack.store.getApproval(apprId)!;
-    assert.equal(a.status, "denied"); // deny won the race (first committed)
-    // second response reports existing decision, not a new one
-    assert.ok(statuses.every((s) => s === "denied") || statuses.includes("denied"));
+    assert.equal(a.status, expectedStatus);
+    assert.equal(a.chosen_option, expectedOption);
+    const replay = await api(env, "POST", `/v1/jobs/${jobId}/permissions/${apprId}`, { option: expectedOption === "deny" ? "allow" : "deny" });
+    assert.equal((replay.body as { status: string }).status, "already");
+    assert.equal(env.stack.store.getApproval(apprId)!.chosen_option, expectedOption);
 
     // cross-job: use approval id under another job id -> invalid/not found
     const other = await api(env, "POST", "/v1/jobs", { ...JOB, preferred: { model: "fake-small" } }, { "idempotency-key": "a4" });
