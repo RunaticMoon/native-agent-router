@@ -12,7 +12,7 @@ coverage/
 *.pem
 *.key
 .DS_Store
-runtime/
-workspaces/
-state/
+/runtime/
+/workspaces/
+/state/
 .hermes/
